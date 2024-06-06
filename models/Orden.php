@@ -38,8 +38,8 @@ class Orden extends \yii\db\ActiveRecord
             [['ordenid', 'empleadoid', 'clienteid', 'descuento'], 'integer'],
             [['fechaorden'], 'safe'],
             [['ordenid'], 'unique'],
-            [['clienteid'], 'exist', 'skipOnError' => true, 'targetClass' => Clientes::class, 'targetAttribute' => ['clienteid' => 'clienteid']],
-            [['empleadoid'], 'exist', 'skipOnError' => true, 'targetClass' => Empleados::class, 'targetAttribute' => ['empleadoid' => 'empleadoid']],
+            [['clienteid'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::class, 'targetAttribute' => ['clienteid' => 'clienteid']],
+            [['empleadoid'], 'exist', 'skipOnError' => true, 'targetClass' => Empleado::class, 'targetAttribute' => ['empleadoid' => 'empleadoid']],
         ];
     }
 
@@ -64,7 +64,7 @@ class Orden extends \yii\db\ActiveRecord
      */
     public function getCliente()
     {
-        return $this->hasOne(Clientes::class, ['clienteid' => 'clienteid']);
+        return $this->hasOne(Cliente::class, ['clienteid' => 'clienteid']);
     }
 
     /**
@@ -74,7 +74,7 @@ class Orden extends \yii\db\ActiveRecord
      */
     public function getDetalleOrdenes()
     {
-        return $this->hasMany(DetalleOrdenes::class, ['ordenid' => 'ordenid']);
+        return $this->hasMany(DetalleOrden::class, ['ordenid' => 'ordenid']);
     }
 
     /**
@@ -84,6 +84,6 @@ class Orden extends \yii\db\ActiveRecord
      */
     public function getEmpleado()
     {
-        return $this->hasOne(Empleados::class, ['empleadoid' => 'empleadoid']);
+        return $this->hasOne(Empleado::class, ['empleadoid' => 'empleadoid']);
     }
 }

@@ -71,6 +71,6 @@ class Cliente extends \yii\db\ActiveRecord
      */
     public function getOrdenes()
     {
-        return $this->hasMany(Ordenes::class, ['clienteid' => 'clienteid']);
+        return $this->hasMany(Orden::class, ['clienteid' => 'clienteid']);
     }
 }

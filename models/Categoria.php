@@ -54,6 +54,6 @@ class Categoria extends \yii\db\ActiveRecord
      */
     public function getProductos()
     {
-        return $this->hasMany(Productos::class, ['categoriaid' => 'categoriaid']);
+        return $this->hasMany(Producto::class, ['categoriaid' => 'categoriaid']);
     }
 }

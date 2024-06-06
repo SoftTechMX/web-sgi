@@ -76,7 +76,7 @@ class Empleado extends \yii\db\ActiveRecord
      */
     public function getOrdenes()
     {
-        return $this->hasMany(Ordenes::class, ['empleadoid' => 'empleadoid']);
+        return $this->hasMany(Orden::class, ['empleadoid' => 'empleadoid']);
     }
 
     /**

@@ -67,7 +67,7 @@ class Producto extends \yii\db\ActiveRecord
      */
     public function getCategoria()
     {
-        return $this->hasOne(Categorias::class, ['categoriaid' => 'categoriaid']);
+        return $this->hasOne(Categoria::class, ['categoriaid' => 'categoriaid']);
     }
 
     /**
@@ -87,6 +87,6 @@ class Producto extends \yii\db\ActiveRecord
      */
     public function getProveedor()
     {
-        return $this->hasOne(Proveedores::class, ['proveedorid' => 'proveedorid']);
+        return $this->hasOne(Proveedor::class, ['proveedorid' => 'proveedorid']);
     }
 }
