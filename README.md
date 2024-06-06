@@ -106,3 +106,9 @@ php yii serve --port=8888
 ```
 
 Despues accede a la ruta [http://localhost:8080/](http://localhost:8080/) en tu navegador, deberias de ver la app sin ningun error.
+
+### Paso 4:
+
+```bash
+./yii migrate
+```
