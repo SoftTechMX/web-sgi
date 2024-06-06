@@ -40,8 +40,8 @@ class Producto extends \yii\db\ActiveRecord
             [['preciounit'], 'number'],
             [['descripcion'], 'string', 'max' => 50],
             [['productoid'], 'unique'],
-            [['categoriaid'], 'exist', 'skipOnError' => true, 'targetClass' => Categorias::class, 'targetAttribute' => ['categoriaid' => 'categoriaid']],
-            [['proveedorid'], 'exist', 'skipOnError' => true, 'targetClass' => Proveedores::class, 'targetAttribute' => ['proveedorid' => 'proveedorid']],
+            [['categoriaid'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['categoriaid' => 'categoriaid']],
+            [['proveedorid'], 'exist', 'skipOnError' => true, 'targetClass' => Proveedor::class, 'targetAttribute' => ['proveedorid' => 'proveedorid']],
         ];
     }
 
@@ -77,7 +77,7 @@ class Producto extends \yii\db\ActiveRecord
      */
     public function getDetalleOrdenes()
     {
-        return $this->hasMany(DetalleOrdenes::class, ['productoid' => 'productoid']);
+        return $this->hasMany(DetalleOrden::class, ['productoid' => 'productoid']);
     }
 
     /**
