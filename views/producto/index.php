@@ -15,31 +15,53 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="producto-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Producto', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="d-flex justify-content-end">
+        <a href="/producto/create" class="btn btn-success">
+            Nuevo Producto
+        </a>
+    </div>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'productoid',
-            'proveedorid',
-            'categoriaid',
-            'descripcion',
-            'preciounit',
-            //'existencia',
+            [
+                'attribute'         => 'productoid',
+                'headerOptions'     => ['class' => 'col-1'],
+                'contentOptions'    => ['class' => 'col-1'],
+            ],
+            [
+                'attribute'         => 'proveedorid',
+                'headerOptions'     => ['class' => 'col-1'],
+                'contentOptions'    => ['class' => 'col-1'],
+            ],
+            [
+                'attribute'         => 'categoriaid',
+                'headerOptions'     => ['class' => 'col-1'],
+                'contentOptions'    => ['class' => 'col-1'],
+            ],
+            [
+                'attribute'         => 'descripcion',
+                'headerOptions'     => ['class' => 'col-auto'],
+                'contentOptions'    => ['class' => 'col-auto'],
+            ],
+            [
+                'attribute'         => 'preciounit',
+                'headerOptions'     => ['class' => 'col-1'],
+                'contentOptions'    => ['class' => 'col-1'],
+            ],
+            [
+                'attribute'         => 'existencia',
+                'headerOptions'     => ['class' => 'col-1'],
+                'contentOptions'    => ['class' => 'col-1'],
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Producto $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'productoid' => $model->productoid]);
-                 }
+                 },
+                 'headerOptions'     => ['class' => 'col-1'],
+                 'contentOptions'    => ['class' => 'col-1 text-center'],
             ],
         ],
     ]); ?>

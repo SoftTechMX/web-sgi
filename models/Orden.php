@@ -51,7 +51,9 @@ class Orden extends \yii\db\ActiveRecord
         return [
             'ordenid' => 'ID Orden',
             'empleadoid' => 'ID Empleado',
+            "nombreDelEmpleado" => 'Nombre del Empleado',
             'clienteid' => 'ID Cliente',
+            "nombreDelCliente" => 'Nombre del Cliente',
             'fechaorden' => 'Fecha De Orden',
             'descuento' => 'Descuento',
         ];
@@ -65,6 +67,11 @@ class Orden extends \yii\db\ActiveRecord
     public function getCliente()
     {
         return $this->hasOne(Cliente::class, ['clienteid' => 'clienteid']);
+    }
+
+    public function getNombreDelCliente()
+    {
+        return $this->cliente->nombrecontacto;
     }
 
     /**
@@ -85,5 +92,10 @@ class Orden extends \yii\db\ActiveRecord
     public function getEmpleado()
     {
         return $this->hasOne(Empleado::class, ['empleadoid' => 'empleadoid']);
+    }
+
+    public function getNombreDelEmpleado()
+    {
+        return $this->empleado->nombre . $this->empleado->apellido;
     }
 }

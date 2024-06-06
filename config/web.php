@@ -12,7 +12,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'request' => [
+        'request'   => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'DswkpahvZ2krh_REp48GLS8c0EhGVWf-',
         ],
@@ -49,7 +49,6 @@ $config = [
             'rules' => [
             ],
         ],
-        
     ],
     'params' => $params,
 ];

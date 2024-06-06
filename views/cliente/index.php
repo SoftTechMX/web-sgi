@@ -15,25 +15,41 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cliente-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Cliente', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="d-flex justify-content-end">
+        <a href="/cliente/nuevo" class="btn btn-success">
+            Nuevo Cliente
+        </a>
+    </div>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'clienteid',
-            'cedula_ruc',
-            'nombrecia',
-            'nombrecontacto',
-            'direccioncli',
+            [
+                'attribute'         => 'clienteid',
+                'headerOptions'     => ['class' => 'col-1'],
+                'contentOptions'    => ['class' => 'col-1'],
+            ],
+            [
+                'attribute'         => 'cedula_ruc',
+                'headerOptions'     => ['class' => 'col-1'],
+                'contentOptions'    => ['class' => 'col-1'],
+            ],
+            [
+                'attribute'         => 'nombrecia',
+                'headerOptions'     => ['class' => 'col-3'],
+                'contentOptions'    => ['class' => 'col-2'],
+            ],
+            [
+                'attribute'         => 'nombrecontacto',
+                'headerOptions'     => ['class' => 'col-3'],
+                'contentOptions'    => ['class' => 'col-2'],
+            ],
+            [
+                'attribute'         => 'direccioncli',
+                'headerOptions'     => ['class' => 'col-auto'],
+                'contentOptions'    => ['class' => 'col-auto'],
+            ],
             //'fax',
             //'email:email',
             //'celular',
@@ -42,7 +58,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Cliente $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'clienteid' => $model->clienteid]);
-                 }
+                 },
+                 'headerOptions'     => ['class' => 'col-1'],
+                 'contentOptions'    => ['class' => 'col-1 text-center'],
             ],
         ],
     ]); ?>

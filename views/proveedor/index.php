@@ -15,30 +15,48 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="proveedor-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Proveedor', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="d-flex justify-content-end">
+        <a href="/proveedor/create" class="btn btn-success">
+            Nuevo Proveedor
+        </a>
+    </div>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'proveedorid',
-            'nombreprov',
-            'contacto',
-            'celuprov',
-            'fijoprov',
+            [
+                'attribute'         => 'proveedorid',
+                'headerOptions'     => ['class' => 'col-1'],
+                'contentOptions'    => ['class' => 'col-1'],
+            ],
+            [
+                'attribute'         => 'nombreprov',
+                'headerOptions'     => ['class' => 'col-3'],
+                'contentOptions'    => ['class' => 'col-3'],
+            ],
+            [
+                'attribute'         => 'contacto',
+                'headerOptions'     => ['class' => 'col-3'],
+                'contentOptions'    => ['class' => 'col-3'],
+            ],
+            [
+                'attribute'         => 'celuprov',
+                'headerOptions'     => ['class' => 'col-2'],
+                'contentOptions'    => ['class' => 'col-2'],
+            ],
+            [
+                'attribute'         => 'fijoprov',
+                'headerOptions'     => ['class' => 'col-2'],
+                'contentOptions'    => ['class' => 'col-2'],
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Proveedor $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'proveedorid' => $model->proveedorid]);
-                 }
+                 },
+                 'headerOptions'     => ['class' => 'col-1'],
+                 'contentOptions'    => ['class' => 'col-1 text-center'],
             ],
         ],
     ]); ?>
