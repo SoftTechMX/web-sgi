@@ -3,7 +3,7 @@
 return [
     'class'     => 'yii\db\Connection',
     'dsn'       => 'pgsql:host=localhost;dbname=pedidos',
-    'username'  => 'adminstrador',
+    'username'  => 'administrador',
     'password'  => 'admin12345',
     'charset'   => 'utf8',
 
