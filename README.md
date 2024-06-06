@@ -6,18 +6,22 @@
     <br>
 </p>
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](https://www.yiiframework.com/) application best for
-rapidly creating small projects.
+## Sistema de Inventario
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
+Este proyecto es un sistema basico de inventario que permite realizar las siguientes operaciones (CRUD):
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![build](https://github.com/yiisoft/yii2-app-basic/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-basic/actions?query=workflow%3Abuild)
+1. (C) Registrar Productos
+2. (R) Ver el listado de productos
+2. (U) Editar/Actualizar Productos
+3. (D) Eliminar Productos
 
-DIRECTORY STRUCTURE
+Tambien se pueden hacer las siguientes operaciones:
+1. (C) Registrar Unidades de Medida
+2. (R) Ver el listado de Unidades de Medida
+2. (U) Editar/Actualizar Unidades de Medida
+3. (D) Eliminar Unidades de Medida
+
+ESTRUCTURA DE DIRECTORIOS
 -------------------
 
       assets/             contains assets definition
@@ -34,200 +38,71 @@ DIRECTORY STRUCTURE
 
 
 
-REQUIREMENTS
+REQUERIMENTOS
 ------------
 
-The minimum requirement by this project template that your Web server supports PHP 7.4.
+Los requerimento para ejecutar el proyecto son los siguientes:
+
+* PostgreSQL Server 14
+* PHP 8.2.
+* Composer 2
 
 
-INSTALLATION
+INSTALACION Y CONFIGURACION
 ------------
 
-### Install via Composer
+### Paso 1: Creacion de la Base de Datos
 
-If you do not have [Composer](https://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](https://getcomposer.org/doc/00-intro.md#installation-nix).
+Clona este repositorio, y procede a abrir una terminal en la carpeta raiz del proyecto. La aplicacion necesita una base de datos para poder funcionar correctamente, es necesario crear una base de datos y un usuario, para dicha db, ademas es necesario otorgarle los permisos apropiados al usuario para que pueda realizar las operaciones correspodientes. A continuacion se muestran los comandos necesarios para realizar dichas acciones.
 
-You can then install this project template using the following command:
+Ejecuta los siguientes comandos:
 
-~~~
-composer create-project --prefer-dist yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
-### Install from an Archive File
-
-Extract the archive file downloaded from [yiiframework.com](https://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
-
-Set cookie validation key in `config/web.php` file to some random secret string:
-
-```php
-'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
-],
+```bash
+sudo -i -u postgres psql
+psql -U postgres
 ```
 
-You can then access the application through the following URL:
+Ya una vez que se inicia sesion con el usuario Postgres y se ha abierto la shell de SQL se debe ejecutar los siguientes comandos para crear la DB y el usuario.
 
-~~~
-http://localhost/basic/web/
-~~~
-
-
-### Install with Docker
-
-Update your vendor packages
-
-    docker-compose run --rm php composer update --prefer-dist
-    
-Run the installation triggers (creating cookie validation code)
-
-    docker-compose run --rm php composer install    
-    
-Start the container
-
-    docker-compose up -d
-    
-You can then access the application through the following URL:
-
-    http://127.0.0.1:8000
-
-**NOTES:** 
-- Minimum required Docker engine version `17.04` for development (see [Performance tuning for volume mounts](https://docs.docker.com/docker-for-mac/osxfs-caching/))
-- The default configuration uses a host-volume in your home directory `.docker-composer` for composer caches
-
-
-CONFIGURATION
--------------
-
-### Database
-
-Edit the file `config/db.php` with real data, for example:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
+```SQL
+CREATE DATABASE pedidos;
+CREATE USER administrador WITH PASSWORD 'admin12345';
+GRANT ALL PRIVILEGES ON DATABASE pedidos TO administrador;
 ```
 
-**NOTES:**
-- Yii won't create the database for you, this has to be done manually before you can access it.
-- Check and edit the other files in the `config/` directory to customize your application as required.
-- Refer to the README in the `tests` directory for information specific to basic application tests.
+### Paso 2: Importacion de la DB
 
+Vamos a importar la base de datos, primero vamos a validar que el usuario se ha creado correctamente ejecutando el siguiente comando:
 
-TESTING
--------
-
-Tests are located in `tests` directory. They are developed with [Codeception PHP Testing Framework](https://codeception.com/).
-By default, there are 3 test suites:
-
-- `unit`
-- `functional`
-- `acceptance`
-
-Tests can be executed by running
-
-```
-vendor/bin/codecept run
+```bash
+psql -h localhost -U administrador -d pedidos
 ```
 
-The command above will execute unit and functional tests. Unit tests are testing the system components, while functional
-tests are for testing user interaction. Acceptance tests are disabled by default as they require additional setup since
-they perform testing in real browser. 
-
-
-### Running  acceptance tests
-
-To execute acceptance tests do the following:  
-
-1. Rename `tests/acceptance.suite.yml.example` to `tests/acceptance.suite.yml` to enable suite configuration
-
-2. Replace `codeception/base` package in `composer.json` with `codeception/codeception` to install full-featured
-   version of Codeception
-
-3. Update dependencies with Composer 
-
-    ```
-    composer update  
-    ```
-
-4. Download [Selenium Server](https://www.seleniumhq.org/download/) and launch it:
-
-    ```
-    java -jar ~/selenium-server-standalone-x.xx.x.jar
-    ```
-
-    In case of using Selenium Server 3.0 with Firefox browser since v48 or Google Chrome since v53 you must download [GeckoDriver](https://github.com/mozilla/geckodriver/releases) or [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) and launch Selenium with it:
-
-    ```
-    # for Firefox
-    java -jar -Dwebdriver.gecko.driver=~/geckodriver ~/selenium-server-standalone-3.xx.x.jar
-    
-    # for Google Chrome
-    java -jar -Dwebdriver.chrome.driver=~/chromedriver ~/selenium-server-standalone-3.xx.x.jar
-    ``` 
-    
-    As an alternative way you can use already configured Docker container with older versions of Selenium and Firefox:
-    
-    ```
-    docker run --net=host selenium/standalone-firefox:2.53.0
-    ```
-
-5. (Optional) Create `yii2basic_test` database and update it by applying migrations if you have them.
-
-   ```
-   tests/bin/yii migrate
-   ```
-
-   The database configuration can be found at `config/test_db.php`.
-
-
-6. Start web server:
-
-    ```
-    tests/bin/yii serve
-    ```
-
-7. Now you can run all available tests
-
-   ```
-   # run all available tests
-   vendor/bin/codecept run
-
-   # run acceptance tests
-   vendor/bin/codecept run acceptance
-
-   # run only unit and functional tests
-   vendor/bin/codecept run unit,functional
-   ```
-
-### Code coverage support
-
-By default, code coverage is disabled in `codeception.yml` configuration file, you should uncomment needed rows to be able
-to collect code coverage. You can run your tests and collect coverage with the following command:
+al ejecutar ese comando se debe acceder a la base de datos, *SI NO SE ACCEDE O SE MUESTRA ALGUN ERROR HAY QUE EJECUTAR LOS PASOS ANTERIORES CORRECTAMENTE*, se debe mostrar algo como lo siguiente:
 
 ```
-#collect coverage for all tests
-vendor/bin/codecept run --coverage --coverage-html --coverage-xml
+psql (14.12 (Ubuntu 14.12-0ubuntu0.22.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
 
-#collect coverage only for unit tests
-vendor/bin/codecept run unit --coverage --coverage-html --coverage-xml
+pedidos=> 
 
-#collect coverage for unit and functional tests
-vendor/bin/codecept run functional,unit --coverage --coverage-html --coverage-xml
 ```
 
-You can see code coverage output under the `tests/_output` directory.
+Ahora procedemos a importar la DB, cierra la sesion que acabas de abrir (presiona control+d),
+Despues ejecuta los siguientes comandos:
+
+```bash
+cd documentacion
+psql -h localhost -U administrador -d pedidos < db.sql
+```
+
+### Paso 3: Ejecucion de la APP
+
+Ya para finalizar vamos a probar si la app se esta ejecutando correctamente, para ello vamos a iniciarla con el siguiente comando:
+
+```bash
+php yii serve --port=8888
+```
+
+Despues accede a la ruta [http://localhost:8080/](http://localhost:8080/) en tu navegador, deberias de ver la app sin ningun error.
